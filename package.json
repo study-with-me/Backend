@@ -1,0 +1,19 @@
+{
+  "name": "studybuddy",
+  "version": "1.0.0",
+  "description": "A web app and group study platform dedicated to giving students the opportunities to learn and prepare for tests and quizzes wherever they are.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sesamestrong/Study-Buddies.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sesamestrong/Study-Buddies/issues"
+  },
+  "homepage": "https://github.com/Sesamestrong/Study-Buddies#readme"
+}
