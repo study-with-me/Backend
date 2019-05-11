@@ -4,7 +4,8 @@
   "description": "A web app and group study platform dedicated to giving students the opportunities to learn and prepare for tests and quizzes wherever they are.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "dependencies": {
     "mongoose": "",
