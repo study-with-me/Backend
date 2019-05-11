@@ -1,5 +1,5 @@
 {
-  "name": "studybuddy",
+  "name": "studywithme-api",
   "version": "1.0.0",
   "description": "A web app and group study platform dedicated to giving students the opportunities to learn and prepare for tests and quizzes wherever they are.",
   "main": "index.js",
@@ -8,12 +8,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Sesamestrong/Study-Buddies.git"
+    "url": "git+https://github.com/study-with-me/Backend.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Sesamestrong/Study-Buddies/issues"
+    "url": "https://github.com/study-with-me/Backend/issues"
   },
-  "homepage": "https://github.com/Sesamestrong/Study-Buddies#readme"
+  "homepage": "https://github.com/study-with-me/Backend#readme"
 }
