@@ -8,9 +8,12 @@
     "start": "node index.js"
   },
   "dependencies": {
-    "mongoose": "",
     "@ezflux/data": "1.0.6",
-    "@ezflux/data-mongoose": "1.0.1"
+    "@ezflux/data-mongoose": "1.0.1",
+    "body-parser": "^1.19.0",
+    "express": "^4.16.4",
+    "mongoose": "",
+    "socket.io": "^2.2.0"
   },
   "repository": {
     "type": "git",
