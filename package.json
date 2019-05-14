@@ -1,28 +1,19 @@
 {
-  "name": "studywithme-api",
+  "name": "studybackend",
   "version": "1.0.0",
-  "description": "A web app and group study platform dedicated to giving students the opportunities to learn and prepare for tests and quizzes wherever they are.",
-  "main": "index.js",
+  "main": "(index.js)",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "dependencies": {
-    "@ezflux/data": "1.0.6",
-    "@ezflux/data-mongoose": "1.0.1",
-    "body-parser": "^1.19.0",
-    "express": "^4.16.4",
-    "mongoose": "",
-    "socket.io": "^2.2.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/study-with-me/Backend.git"
-  },
-  "author": "",
+  "author": "me",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/study-with-me/Backend/issues"
+  "dependencies": {
+    "express": "^4.16.4",
+    "socket.io": "^2.2.0",
+    "socket.io-stream": "^0.9.1"
   },
-  "homepage": "https://github.com/study-with-me/Backend#readme"
+  "devDependencies": {
+    "nodemon": "^1.19.0"
+  },
+  "description": ""
 }
