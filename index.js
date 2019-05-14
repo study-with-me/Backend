@@ -1,16 +1,51 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-//const db = require('./db');
+var express = require("express");
+var socket = require("socket.io");
+var http = require("http");
+var path = require("path");
+var fs = require("fs");
 
-const app = express();
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static('public'));
+var app = express();
+var server = app.listen(4000, () => console.log("listening on port 4000"));
 
-app.get('/', (req, res) => {
-	res.send('test');
+app.get("/", function (req, res) {
+    res.sendFile(__dirname + "/index.html");
 });
 
-app.listen(process.env.PORT || 3000, () => console.log('server started'));
+app.use(express.static("public"))
+
+var io = socket(server);
+io.on("connection", (socket) => {
+
+    console.log("made socket connection", socket.id);
+
+    // emit chat info to sockets
+    socket.on("chat", function(data){
+        io.sockets.emit("chat", data);
+    });
+
+    // broadcast typing info to sockets
+    socket.on("typing", function(data){
+        socket.broadcast.emit("typing", data);
+    });
+
+    var readStream;
+    socket.on("upload", function(data){
+        readStream = fs.createReadStream(path.resolve
+            (__dirname, data), {encoding: "binary"}),
+            chunks = [];
+    });
+
+    readStream.on("readable", function () {
+        console.log("Image loading")
+    });
+
+    readStream.on("data", function (chunk){
+        chunks.push(chunk);
+        socket.emit("img-chunk", chunk);
+    })
+
+    readStream.on("end", function() {
+        console.log("Image loaded")
+    })
+});
