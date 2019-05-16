@@ -2,29 +2,27 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
-const Member=require("./services/member");
-const User=require("./services/user");
-const Chat=require("./services/chat");
+const User = require("./services/user");
+const Chat = require("./services/chat");
 
 const app = express();
-const io=require("socket.io")(app);
-
-var app = express();
-var server = app.listen(4000, () => console.log("listening on port 4000"));
+const server = require("http").Server(app);
+const io = require("socket.io")(server);
 
 app.get("/", function (req, res) {
     res.sendFile(__dirname + "/index.html");
 });
 
-io.sockets.on("connection",(socket)=>{
-	const user=new User(socket);
+io.sockets.on("connection", (socket) => {
+    const user = new User(socket);
 
-	socket.on("disconnect",()=>{
-		//IDK
-	});
+    socket.on("disconnect", () => {
+        //IDK
+    });
+
 });
 
-const port=process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Server started on port ${port}.`));
 
 //TODO Move this functionality to class-based structures, like in the Talker and Chat classes - Everything must be modular and nice

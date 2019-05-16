@@ -3,14 +3,14 @@
   "version": "1.0.0",
   "main": "(index.js)",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
-  "author": "me",
+  "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.4",
-<<<<<<< HEAD
-    "mongoose": "",
+    "mongoose": "^5.5.9",
     "randomstring": "^1.1.5",
     "socket.io": "^2.2.0"
   },
@@ -18,14 +18,8 @@
     "type": "git",
     "url": "git+https://github.com/study-with-me/Backend.git"
   },
-  "author": "",
-  "license": "ISC",
   "bugs": {
     "url": "https://github.com/study-with-me/Backend/issues"
-=======
-    "socket.io": "^2.2.0",
-    "socket.io-stream": "^0.9.1"
->>>>>>> 57143f8ca6b34f0b9c2a2320552cacb3f4ae35fa
   },
   "description": ""
 }

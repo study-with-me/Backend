@@ -1,26 +1,26 @@
-import User from "./user";
-export default class Chat {
-    constructor(...talkers) {
+const User =require("./user");
+module.exports = class Chat {
+    constructor(...users) {
         this.events = [];
-        this.invite(...talkers);
+        this.invite(...users);
         this.id=saltshaker();
     }
     /**
-     * ends the chat and removes all members.
+     * Ends the chat and removes all members.
      */
     cease() {
-        for(let talker of talkers) {
-            talker.leave(this);
+        for(let user of users) {
+            user.leave(this);
         }
         this.events=[];
     }
     /**
      * 
-     * @param  {...Talker} talkers An array of Talkers to add to the Chat.
+     * @param  {...user} users An array of Users to add to the Chat.
      */
-    invite(...talkers) {
-        for (let talker of talkers) {
-            talker.join(this);
+    invite(...users) {
+        for (let user of users) {
+            user.join(this);
         }
     }
 }
