@@ -5,6 +5,7 @@ module.exports = class User {
         const id=saltshaker();
         this.id=id;
         socket.id=id;
+        this.blocked={};
     }
     throw(id,...info){
         if(id>=errors.length) return this.socket.emit("error",-1);
@@ -53,5 +54,25 @@ module.exports = class User {
             console.log(`Attempted to use invalid event type ${event}`);
             this.throw(1,process.env.MODE==="development"?event:null);
         }
+    }
+    block (user) {
+        this.blocked.append(user.id);
+    }
+    /**
+     * @param {Chat} chat - The Chat to send the message in
+     */
+    sendMessage (message,  chat){
+        const talkers = chat.talkers;
+        const users_to_receive = talkers.filter(talker => !this.blocked.includes(talker));
+        const timestamp = new Date().getTime();
+        this.emit(message, users_to_receive, chat, timestamp);
+    }
+     /**
+     * @param {String} message - The message string to delete
+     * @param {Number} timestamp - The message's timestamp
+     * @param {Chat} chat - The chat that the message was sent in
+     */
+    deleteMessage (message, timestamp, chat){
+        messages.filter(curr_msg.message != message | curr_msg.timestamp != timestamp != curr_msg.chat != chat);
     }
 }
