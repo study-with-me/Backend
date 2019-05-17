@@ -13,54 +13,36 @@ app.get("/", function (req, res) {
     res.sendFile(__dirname + "/index.html");
 });
 
-io.sockets.on("connection", (socket) => {
-    const user = new User(socket);
-
-    socket.on("disconnect", () => {
-        //IDK
-    });
-
-});
-
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Server started on port ${port}.`));
 
-//TODO Move this functionality to class-based structures, like in the Talker and Chat classes - Everything must be modular and nice
-/*app.use(express.static("public"))
+io.sockets.on("connection",(socket)=>{
+	const user=new User(socket);
 
-var io = socket(server);
-io.on("connection", (socket) => {
-
-    console.log("made socket connection", socket.id);
-
-    // emit chat info to sockets
-    socket.on("chat", function(data){
-        io.sockets.emit("chat", data);
+	socket.on("disconnect",()=>{
+		console.log(user + " has left the server at port " + port);
+    });
+    
+    /**
+     * @param {[Chat]} chats - The chats the user is leaving
+     */
+    socket.on("leave", (...chats)=>{
+		console.log(user + " has left " + chats);
     });
 
-    // broadcast typing info to sockets
-    socket.on("typing", function(data){
-        socket.broadcast.emit("typing", data);
+    socket.on("join", (...chats)=>{
+		console.log(user + " has joined " + chats);
     });
-
-    var readStream;
-    socket.on("upload", function(data){
-        readStream = fs.createReadStream(path.resolve
-            (__dirname, data), {encoding: "binary"}),
-            chunks = [];
-    });
-
-    readStream.on("readable", function () {
-        console.log("Image loading")
-    });
-
-    readStream.on("data", function (chunk){
-        chunks.push(chunk);
-        socket.emit("img-chunk", chunk);
+    
+    socket.on("chat",(event,message)=>{
+        if(event==="joined") alert("Oh man! "+message.username+" just joined "+message.chatName+"!");
     })
 
-    readStream.on("end", function() {
-        console.log("Image loaded")
-    })
+    socket.on("send", (message, users_to_receive, chat, timestamp)=>{
+		console.log(user + " has sent the message " + message);
+    });
+
+    socket.on("block", (user1, user2) => {
+        console.log(user1 + " has blocked " + user2);
+    });
 });
-*/
