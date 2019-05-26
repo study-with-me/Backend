@@ -1,15 +1,29 @@
-const {saltshaker,errors} =require("../util");
+const {saltShaker,errors} =require("../util");
+const {Message} = require("./message");
 module.exports = class User {
     constructor(socket) {
         this.socket=socket;
-        const id=saltshaker();
+        const id=saltShaker();
         this.id=id;
         socket.id=id;
         this.blocked={};
+        this.on("chat","leave",(...ids)=>{
+            this.leave(...chatsFromIds(...ids));
+        });
+        this.on("chat","join",(...ids)=>{
+            this.join(...chatsFromIds(...ids));
+        });
+        this.on("chat","send",(chat,message)=>{
+            this.chatsFromIds(chatId)[0].sendMessage();
+        });
     }
     throw(id,...info){
         if(id>=errors.length) return this.socket.emit("error",-1);
         this.socket.emit("error",id,...info);
+    }
+
+    chatsFromIds(...ids){
+        return ids.map(id=>allChats.map(chat=>chat.id===id)[0]).filter();
     }
 
     /*
@@ -21,7 +35,7 @@ module.exports = class User {
 
     /*
     Talker section - For interfacing with the Chat class.
-    @todo - Remove usage of Chats and switch to Groups. However, this will be later.
+    @todo - Remove usage of Chats and switch to Groups somewhere down the line.
     */
     join(...chats){
         for(let chat of chats){
@@ -49,30 +63,20 @@ module.exports = class User {
         this.emit("chat","messages",chat.id,i,messages);
     }
     emit(event,...info){
-        if(userEvents.includes(event)) this.socket.emit("chat",...info);
+        if(userEvents.includes(event)) this.socket.emit(event,...info);
         else {
             console.log(`Attempted to use invalid event type ${event}`);
             this.throw(1,process.env.MODE==="development"?event:null);
         }
     }
+    on(event,happening,func){
+        this.socket.on(event,(type,...info)=>{
+            if(type===happening) {
+                func(info);
+            }
+        });
+    }
     block (user) {
-        this.blocked.append(user.id);
-    }
-    /**
-     * @param {Chat} chat - The Chat to send the message in
-     */
-    sendMessage (message,  chat){
-        const talkers = chat.talkers;
-        const users_to_receive = talkers.filter(talker => !this.blocked.includes(talker));
-        const timestamp = new Date().getTime();
-        this.emit(message, users_to_receive, chat, timestamp);
-    }
-     /**
-     * @param {String} message - The message string to delete
-     * @param {Number} timestamp - The message's timestamp
-     * @param {Chat} chat - The chat that the message was sent in
-     */
-    deleteMessage (message, timestamp, chat){
-        messages.filter(curr_msg.message != message | curr_msg.timestamp != timestamp != curr_msg.chat != chat);
+        this.blocked.push(user);
     }
 }
